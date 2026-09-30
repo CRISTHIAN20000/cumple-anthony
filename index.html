@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff4c7">
+  <meta name="description" content="Una invitación especial para celebrar el cumpleaños de Anthony. Mira el video y confirma tu asistencia.">
+  <meta name="robots" content="noindex,nofollow">
+  <title>¡Cumple Anthony! 🎂</title>
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="stylesheet" href="cumple-anthony.css">
+  <script src="cumple-anthony.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="etiqueta">🐾 UNA INVITACIÓN ESPECIAL</span>
+      <h1>¡Cumple Anthony! 🎂</h1>
+      <p>Un día especial para compartir contigo.</p>
+    </header>
+    <section id="invitacion" aria-label="Invitación de Anthony">
+      <div class="tarjeta">
+        <div class="reproductor">
+          <video id="video" playsinline preload="metadata" width="1080" height="1350"
+            controlslist="nodownload noremoteplayback" disablepictureinpicture disableremoteplayback
+            poster="https://res.cloudinary.com/educafotos01/video/upload/so_0,w_720,c_limit,q_auto,f_jpg/v1790731980/invitacion.jpg"
+            src="https://res.cloudinary.com/educafotos01/video/upload/q_auto:good,w_720,c_limit,vc_h264/v1790731980/invitacion.mp4"
+            aria-label="Video de invitación al cumpleaños de Anthony">
+            Tu navegador no puede reproducir este video. Puedes confirmar tu asistencia con el botón de abajo.
+          </video>
+          <button id="reproducirGrande" type="button" aria-label="Reproducir invitación con sonido"><span aria-hidden="true">▶</span><span>Ver invitación</span></button>
+        </div>
+        <div class="controles" aria-label="Controles del video">
+          <button id="reproducir" type="button" aria-label="Reproducir video">▶ Reproducir</button>
+          <button id="sonido" type="button" aria-label="Silenciar video" aria-pressed="false">🔊 Sonido</button>
+          <label class="sr-only" for="progreso">Avanzar o retroceder el video</label>
+          <input id="progreso" type="range" min="0" max="100" step="0.1" value="0" disabled>
+          <span id="tiempo" aria-hidden="true">0:00</span>
+        </div>
+        <p id="errorVideo" class="error" role="status" hidden></p>
+        <button id="reintentarVideo" class="secundario" type="button" hidden>Volver a cargar el video</button>
+      </div>
+      <div class="acciones">
+        <p id="indicacion" aria-live="polite">Toca ▶ para ver la invitación con sonido.</p>
+        <button id="confirmar" class="principal" type="button" aria-controls="panel" aria-expanded="false">✅ Confirmar asistencia</button>
+        <p class="ayuda">Puedes confirmar cuando quieras.</p>
+      </div>
+    </section>
+    <section id="panel" class="tarjeta panel" aria-labelledby="tituloFormulario" hidden>
+      <form id="formulario">
+        <h2 id="tituloFormulario" tabindex="-1">🎉 ¿Nos acompañas?</h2>
+        <p class="ayuda">Una respuesta por familia o grupo. Puedes responder Sí o No.</p>
+        <fieldset id="campos">
+          <label for="nombre">Tu nombre</label>
+          <input id="nombre" name="nombre" required minlength="2" maxlength="120" autocomplete="name" placeholder="Nombre de quien confirma">
+          <label for="asistencia">¿Asistirás?</label>
+          <select id="asistencia" name="asistencia" required>
+            <option value="">Selecciona una opción</option>
+            <option value="Sí">Sí, asistiré</option><option value="No">No podré asistir</option>
+          </select>
+          <fieldset id="grupo" hidden disabled>
+            <div class="cantidades">
+              <div><label for="adultos">Adultos</label><input id="adultos" name="adultos" type="number" min="0" step="1" value="1" required inputmode="numeric" aria-describedby="ayudaCantidades"></div>
+              <div><label for="ninos">Niños</label><input id="ninos" name="ninos" type="number" min="0" step="1" value="0" required inputmode="numeric" aria-describedby="ayudaCantidades"></div>
+            </div>
+            <p id="ayudaCantidades" class="ayuda">Inclúyete en estas cantidades. Tú + otro adulto + un niño = 2 adultos y 1 niño.</p>
+            <label for="acompanantes">Acompañantes <span>(opcional)</span></label>
+            <textarea id="acompanantes" name="acompanantes" maxlength="1000" rows="2" placeholder="Nombres, por ejemplo: Ana, Mateo"></textarea>
+          </fieldset>
+          <label for="observaciones">Observaciones <span>(opcional)</span></label>
+          <textarea id="observaciones" name="observaciones" maxlength="1000" rows="2"></textarea>
+          <div class="trampa" aria-hidden="true"><label for="website">Deja este campo vacío</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        </fieldset>
+        <p class="ayuda">Tus datos solo se utilizan para coordinar la asistencia al cumpleaños.</p>
+        <button id="enviar" class="enviar" type="submit">Enviar respuesta</button>
+        <p id="estado" class="error" role="status" aria-live="polite"></p>
+      </form>
+      <section id="exito" hidden tabindex="-1" aria-labelledby="tituloExito">
+        <span class="celebracion" aria-hidden="true">🎉</span>
+        <h2 id="tituloExito">Respuesta registrada</h2>
+        <p id="resumen"></p><p>¡Gracias por responder!</p>
+      </section>
+      <button id="volverVideo" class="secundario" type="button">← Volver a la invitación</button>
+      <p class="ayuda">Puedes volver al video sin perder lo que escribiste.</p>
+    </section>
+    <footer>Hecho con cariño para celebrar juntos 💛</footer>
+    <noscript><p>Activa JavaScript para reproducir la invitación y confirmar tu asistencia.</p></noscript>
+  </main>
+</body>
+</html>
