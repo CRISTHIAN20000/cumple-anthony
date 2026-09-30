@@ -8,7 +8,7 @@
   const form = $('formulario');
   const fields = ['nombre','asistencia','adultos','ninos','acompanantes','observaciones'];
   let enviando = false, registrada = false, pending = null, saved = null;
-  let fallback = false;
+  let fallback = false, started = false;
   const remember = () => {
     try { sessionStorage.setItem(STORAGE, JSON.stringify({draft:Object.fromEntries(fields.map(k=>[k,$(k).value])),pending,saved})); } catch {}
   };
@@ -16,8 +16,11 @@
   const group = () => { const yes=$('asistencia').value==='Sí'; $('grupo').hidden=!yes; $('grupo').disabled=!yes; };
   const clock = t => `${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
   const player = () => {
-    $('reproducirGrande').hidden = !video.paused;
-    $('pausar').hidden = video.paused;
+    $('reproducirGrande').hidden = started || video.ended;
+    $('verOtraVez').hidden = !video.ended;
+    $('pausar').hidden = video.ended;
+    $('pausar').textContent = video.paused ? '▶' : '❚❚';
+    $('pausar').setAttribute('aria-label',video.paused?'Continuar video':'Pausar video');
     if(Number.isFinite(video.duration)&&video.duration>0){
       $('progreso').disabled=false; $('progreso').value=100*video.currentTime/video.duration;
       $('progreso').setAttribute('aria-valuetext',`${clock(video.currentTime)} de ${clock(video.duration)}`);
@@ -46,6 +49,7 @@
   }
   let controlsTimer;
   const revealControls = () => {
+    if(video.ended) { $('controles').hidden=true; return; }
     $('controles').hidden=false;
     clearTimeout(controlsTimer);
     controlsTimer=setTimeout(()=>{
@@ -53,7 +57,9 @@
     },2500);
   };
   $('reproducirGrande').addEventListener('click',play);
-  $('pausar').addEventListener('click',()=>video.pause());
+  $('pausar').addEventListener('click',()=>{if(video.paused)play();else video.pause();});
+  $('verOtraVez').addEventListener('click',play);
+  video.addEventListener('play',()=>{started=true;player();});
   video.addEventListener('click',revealControls);
   video.addEventListener('pointermove',revealControls);
   video.addEventListener('contextmenu',e=>e.preventDefault());
@@ -61,7 +67,7 @@
   $('controles').addEventListener('focusout',revealControls);
   $('progreso').addEventListener('input',()=>{if(Number.isFinite(video.duration))video.currentTime=Number($('progreso').value)*video.duration/100;player();});
   ['play','pause','timeupdate','loadedmetadata','volumechange'].forEach(e=>video.addEventListener(e,player));
-  video.addEventListener('ended',()=>{player();$('indicacion').textContent=registrada?'¡Gracias por responder!':'¿Nos acompañas? Toca Confirmar asistencia.';});
+  video.addEventListener('ended',()=>{clearTimeout(controlsTimer);$('controles').hidden=true;player();$('indicacion').textContent=registrada?'¡Gracias por responder!':'¿Nos acompañas? Toca Confirmar asistencia.';});
   video.addEventListener('error',()=>{
     if(!fallback){fallback=true;video.src=ORIGINAL;video.load();return;}
     $('errorVideo').textContent='No se pudo cargar el video. Puedes reintentarlo o confirmar tu asistencia.';
@@ -69,7 +75,7 @@
   });
   $('reintentarVideo').addEventListener('click',()=>{video.load();play();});
   $('confirmar').addEventListener('click',()=>{video.pause();$('invitacion').hidden=true;$('panel').hidden=false;$('confirmar').setAttribute('aria-expanded','true');focus(registrada?$('exito'):$('tituloFormulario'));});
-  $('volverVideo').addEventListener('click',()=>{$('panel').hidden=true;$('invitacion').hidden=false;$('confirmar').setAttribute('aria-expanded','false');focus($('reproducirGrande'));});
+  $('volverVideo').addEventListener('click',()=>{$('panel').hidden=true;$('invitacion').hidden=false;$('confirmar').setAttribute('aria-expanded','false');if(started&&!video.ended)revealControls();focus(video.ended?$('verOtraVez'):started?$('pausar'):$('reproducirGrande'));});
   $('asistencia').addEventListener('change',group);
   form.addEventListener('input',remember);
   form.addEventListener('change',remember);
