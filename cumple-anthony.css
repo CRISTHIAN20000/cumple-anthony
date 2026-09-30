@@ -13,26 +13,26 @@ button,input,select,textarea{font:inherit;font-size:16px}button{border:0;border-
 
 /* Fit the invitation and confirmation within the mobile viewport. */
 body{padding:8px 12px max(8px,env(safe-area-inset-bottom))}
-main{max-width:580px}header{height:40px;padding:4px 0 10px}
+main{max-width:580px}header{height:32px;padding:0 0 6px}
 h1{font-size:clamp(17px,5vw,22px);line-height:26px;margin:0;white-space:nowrap}
-#invitacion{height:calc(100svh - 56px - env(safe-area-inset-bottom));height:calc(100dvh - 56px - env(safe-area-inset-bottom));min-height:220px;display:flex;flex-direction:column;align-items:center;gap:12px}
-#invitacion>.tarjeta{min-height:0;flex:1;width:100%;background:transparent;box-shadow:none;display:flex;flex-direction:column;align-items:center;overflow:visible}
+#invitacion{display:flex;flex-direction:column;align-items:center;gap:6px}
+#invitacion>.tarjeta{min-height:0;flex:none;width:100%;background:transparent;box-shadow:none;display:flex;flex-direction:column;align-items:center;overflow:visible}
 .reproductor{min-height:0;flex:1;width:100%;background:transparent;display:flex;justify-content:center;overflow:hidden;border-radius:18px}
 video{width:100%;height:100%;min-height:0;object-fit:contain;border-radius:18px}
-#reproducirGrande{width:94%;padding:18px 4px;display:flex;flex-direction:column;gap:12px;background:transparent;box-shadow:none;white-space:normal;color:#fff;text-shadow:0 2px 5px #000,0 0 12px #000}
+#reproducirGrande{width:94%;padding:18px 4px;display:flex;flex-direction:column;gap:10px;background:rgba(12,35,65,.82);border:1px solid #ffffff40;backdrop-filter:blur(5px);box-shadow:0 5px 18px #0003;white-space:normal;color:#fff;text-shadow:none}
 #reproducirGrande span:first-child{font-size:clamp(13px,3.8vw,19px)}
 #reproducirGrande strong{font-size:clamp(23px,6.4vw,34px);color:#ffe34b;white-space:nowrap;animation:invitar 1.8s ease-in-out infinite}
 .controles{position:absolute;bottom:0;left:0;right:0;grid-template-columns:auto 1fr auto;padding:14px 12px 8px;background:linear-gradient(transparent,#0009);color:white}
 .controles button{background:#ffffff26;color:white;min-width:44px;padding:8px}
 .controles input{accent-color:#ffe34b;min-height:44px;background:transparent;border:0}
 .controles span{color:white;text-shadow:0 1px 3px #000}
-.acciones{flex:none;width:100%;padding:8px 10px 12px}
+.acciones{flex:none;width:100%;padding:4px 10px 6px}
 .principal{min-height:54px;font-size:clamp(16px,4.5vw,20px)}
-.principal.destacado{animation:confirmar 1.1s ease-in-out infinite;transform:scale(1.025);box-shadow:0 0 0 4px #ffd45b55}
+.principal.destacado{animation:confirmar 1.7s ease-in-out infinite;transform:scale(1.025);box-shadow:0 0 0 4px #ffd45b55}
 #errorVideo{margin:4px 0;font-size:12px}#reintentarVideo{margin-top:0;min-height:40px}
-@keyframes invitar{50%{transform:scale(1.045);text-shadow:0 2px 5px #000,0 0 18px #ffbd39}}
-@keyframes confirmar{50%{transform:scale(1.055);box-shadow:0 0 0 6px #ffd45b55,0 5px 20px #dbab2155}}
+@keyframes invitar{50%{transform:scale(1.025)}}
+@keyframes confirmar{50%{transform:scale(1.04);box-shadow:0 0 0 4px #ffd45b55,0 5px 20px #dbab2155}}
 @media(prefers-reduced-motion:reduce){#reproducirGrande strong,.principal.destacado{animation:none}}
 
 #invitacion>.tarjeta{justify-content:center}
-.reproductor{flex:none;width:min(100%,calc((100svh - 142px - env(safe-area-inset-bottom)) * .8));width:min(100%,calc((100dvh - 142px - env(safe-area-inset-bottom)) * .8));aspect-ratio:4/5;max-height:100%}
+.reproductor{flex:none;width:min(100%,calc((100svh - 120px - env(safe-area-inset-bottom)) * .8));width:min(100%,calc((100dvh - 120px - env(safe-area-inset-bottom)) * .8));aspect-ratio:4/5;max-height:100%}
