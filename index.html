@@ -8,16 +8,12 @@
   <meta name="robots" content="noindex,nofollow">
   <title>¡Cumple Anthony! 🎂</title>
   <link rel="preconnect" href="https://res.cloudinary.com">
-  <link rel="stylesheet" href="cumple-anthony.css">
-  <script src="cumple-anthony.js" defer></script>
+  <link rel="stylesheet" href="cumple-anthony.css?v=2">
+  <script src="cumple-anthony.js?v=2" defer></script>
 </head>
 <body>
   <main>
-    <header>
-      <span class="etiqueta">🐾 UNA INVITACIÓN ESPECIAL</span>
-      <h1>¡Cumple Anthony! 🎂</h1>
-      <p>Un día especial para compartir contigo.</p>
-    </header>
+    <header><h1>🎂 ¡Celebremos a Anthony!</h1></header>
     <section id="invitacion" aria-label="Invitación de Anthony">
       <div class="tarjeta">
         <div class="reproductor">
@@ -28,22 +24,20 @@
             aria-label="Video de invitación al cumpleaños de Anthony">
             Tu navegador no puede reproducir este video. Puedes confirmar tu asistencia con el botón de abajo.
           </video>
-          <button id="reproducirGrande" type="button" aria-label="Reproducir invitación con sonido"><span aria-hidden="true">▶</span><span>Ver invitación</span></button>
-        </div>
-        <div class="controles" aria-label="Controles del video">
-          <button id="reproducir" type="button" aria-label="Reproducir video">▶ Reproducir</button>
-          <button id="sonido" type="button" aria-label="Silenciar video" aria-pressed="false">🔊 Sonido</button>
-          <label class="sr-only" for="progreso">Avanzar o retroceder el video</label>
-          <input id="progreso" type="range" min="0" max="100" step="0.1" value="0" disabled>
-          <span id="tiempo" aria-hidden="true">0:00</span>
+          <button id="reproducirGrande" type="button" aria-label="Reproducir invitación con sonido"><span>✨ Tienes una invitación especial</span><strong>▶ TOCA PARA VERLA</strong></button>
+          <div id="controles" class="controles" aria-label="Controles del video" hidden>
+            <button id="pausar" type="button" aria-label="Pausar video">❚❚</button>
+            <label class="sr-only" for="progreso">Avanzar o retroceder el video</label>
+            <input id="progreso" type="range" min="0" max="100" step="0.1" value="0" disabled>
+            <span id="tiempo" aria-hidden="true">0:00</span>
+          </div>
         </div>
         <p id="errorVideo" class="error" role="status" hidden></p>
         <button id="reintentarVideo" class="secundario" type="button" hidden>Volver a cargar el video</button>
       </div>
       <div class="acciones">
-        <p id="indicacion" aria-live="polite">Toca ▶ para ver la invitación con sonido.</p>
+        <p class="sr-only" id="indicacion" aria-live="polite">Toca ▶ para ver la invitación con sonido.</p>
         <button id="confirmar" class="principal" type="button" aria-controls="panel" aria-expanded="false">✅ Confirmar asistencia</button>
-        <p class="ayuda">Puedes confirmar cuando quieras.</p>
       </div>
     </section>
     <section id="panel" class="tarjeta panel" aria-labelledby="tituloFormulario" hidden>
@@ -83,7 +77,6 @@
       <button id="volverVideo" class="secundario" type="button">← Volver a la invitación</button>
       <p class="ayuda">Puedes volver al video sin perder lo que escribiste.</p>
     </section>
-    <footer>Hecho con cariño para celebrar juntos 💛</footer>
     <noscript><p>Activa JavaScript para reproducir la invitación y confirmar tu asistencia.</p></noscript>
   </main>
 </body>
